@@ -1,0 +1,67 @@
+﻿@model ElektronikaiAlkatreszRaktar.Models.AlkatreszKeres
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alkatrészek</h1>
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+
+<form>
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label asp-for="Megnevezes" class="form-label">Megnevezések</label>
+            <select asp-for="Megnevezes" asp-items="Model.Megnevezesek" class="form-select form-select-lg mb-3">
+                <option selected value="">Összes</option>
+            </select>
+            <label for="floatingSelect">Megnevezés</label>
+        </div>
+        <div class="mb-2 col-3">
+            <label asp-for="Tipus" class="form-label">Típusok</label>
+            <select asp-for="Tipus" asp-items="Model.Tipusok" class="form-select form-select-lg mb-3">
+                <option selected value="">Összes</option>
+            </select>
+         
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-warning">Keres</button>
+        </div>
+    </div>
+</form>
+
+<div class="row display-6">
+    <div class="col-4">Megnevezés</div>
+    <div class="col-2">Gyártó</div>
+    <div class="col-2">Típus</div>
+    <div class="col-2">Beszerzés</div>
+</div>
+@foreach (var item in Model.Alkatreszek)
+{
+    <div class="row mt-2">
+        <div class="col-4">@Html.DisplayFor(modelItem => item.Megnevezes)</div>
+        <div class="col-2">@Html.DisplayFor(modelItem => item.Gyarto)</div>
+        <div class="col-2"> @Html.DisplayFor(modelItem => item.Tipus)</div>
+        <div class="col-2"> @Html.DisplayFor(modelItem => item.Beszerzes)</div>
+        <div class="col-2">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <span>|</span>
+            }
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            }
+        </div>
+    </div>
+}
+
