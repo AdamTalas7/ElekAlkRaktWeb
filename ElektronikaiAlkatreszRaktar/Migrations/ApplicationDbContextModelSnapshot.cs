@@ -4,16 +4,14 @@ using ElektronikaiAlkatreszRaktar.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ElektronikaiAlkatreszRaktar.Data.Migrations
+namespace ElektronikaiAlkatreszRaktar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220404122856_Elso")]
-    partial class Elso
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,17 +26,20 @@ namespace ElektronikaiAlkatreszRaktar.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Beszerzes")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Beszerzes")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Gyarto")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Megnevezes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Tipus")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
